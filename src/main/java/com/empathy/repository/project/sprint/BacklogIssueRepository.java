@@ -11,11 +11,11 @@ import com.empathy.model.project.sprint.BacklogIssue;
 @Repository
 public interface BacklogIssueRepository extends CrudRepository<BacklogIssue, String> {
 
-	@Query("SELECT b FROM BacklogIssue b WHERE b.sprintID = :sprintID ")
+	@Query("SELECT q FROM BacklogIssue q WHERE q.sprintID = :sprintID ")
 	List<BacklogIssue> findBySprintId(String sprintID);
 
-	@Query("SELECT b FROM BacklogIssue b WHERE b.sprintID = :sprintID and b.issueLevel = :issueLevel")
-	List<BacklogIssue> findBySprintIdAndIssueLevel(String sprintID, Integer issueLevel);
+	@Query("SELECT q FROM BacklogIssue q WHERE q.sprintID = :sprintID and q.parentID = :parentID")
+	List<BacklogIssue> findBySprintId(String sprintID, String parentID);
 	
 	
 }

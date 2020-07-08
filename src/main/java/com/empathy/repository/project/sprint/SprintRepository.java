@@ -8,11 +8,14 @@ import org.springframework.stereotype.Repository;
 
 import com.empathy.model.project.sprint.Sprint;
 import com.empathy.model.project.sprint.SprintId;
+import com.empathy.types.SprintStatus;
 
 @Repository
 public interface SprintRepository extends CrudRepository<Sprint, SprintId> {
 
 	@Query("SELECT q FROM Sprint q WHERE q.sprintID.projectID = :projectID")
-	List<Sprint> findByProjectId(String projectID);
-
+	List<Sprint> findByProjectID(String projectID);
+	
+	@Query("SELECT q FROM Sprint q WHERE q.sprintID.projectID = :projectID and q.statusID = :statusID")
+	List<Sprint> findByProjectID(String projectID, SprintStatus statusID);
 }

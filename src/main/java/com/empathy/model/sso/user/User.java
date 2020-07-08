@@ -11,15 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.empathy.model.project.Issue;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -50,8 +43,8 @@ public class User {
 	private Date updatedDate;
 
 	@Transient
-	@JsonIgnore
-	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+	@JsonProperty("metaData")
+	private Map<String, Object> metaData = new HashMap<String, Object>();
 
 	/**
 	 * @return the userID
@@ -117,41 +110,14 @@ public class User {
 		this.updatedDate = updatedDate;
 	}
 
-	@JsonAnyGetter
-	public Map<String, Object> getAdditionalProperties() {
-		return this.additionalProperties;
+	@JsonProperty("metaData")
+	public Map<String, Object> getMetaData() {
+		return this.metaData;
 	}
 
-	@JsonAnySetter
-	public void setAdditionalProperty(String name, Object value) {
-		this.additionalProperties.put(name, value);
+	@JsonProperty("metaData")
+	public void setMetaData(String name, Object value) {
+		this.metaData.put(name, value);
 	}
 
-	// "userID", "name", "createdDate", "updatedDate"
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this).append("userID", userID).append("name", name)
-				.append("createdDate", createdDate).append("updatedDate", updatedDate)
-				.append("additionalProperties", additionalProperties).toString();
-	}
-
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder().append(userID).append(name).append(createdDate).append(updatedDate)
-				.append(additionalProperties).toHashCode();
-	}
-
-	@Override
-	public boolean equals(Object other) {
-		if (other == this) {
-			return true;
-		}
-		if ((other instanceof Issue) == false) {
-			return false;
-		}
-		User rhs = ((User) other);
-		return new EqualsBuilder().append(userID, rhs.userID).append(name, rhs.name)
-				.append(createdDate, rhs.createdDate).append(updatedDate, rhs.updatedDate)
-				.append(additionalProperties, rhs.additionalProperties).isEquals();
-	}
 }

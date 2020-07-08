@@ -13,10 +13,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 import com.empathy.model.project.Issue;
 import com.empathy.types.IssueStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Entity
 @Table(name = "PROJECT_SPRINT_ISSUE_MEMBER_DAILY")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "issueMemberDailyID", "statusID", "description", "createdDate", "metaData" })
+@JsonPropertyOrder({ "issueMemberDailyID", "statusID", "description", "createdDate", "impediments", "metaData" })
 public class IssueMemberDaily {
 
 	@EmbeddedId
@@ -46,36 +42,14 @@ public class IssueMemberDaily {
 	@Column(name = "CREATEDDATE", insertable = false, updatable = false)
 	@JsonProperty("createdDate")
 	private Date createdDate;
-	
+
 	@Transient
 	@JsonProperty("impediments")
 	private List<Issue> impediments = new ArrayList<Issue>();
-	
+
 	@Transient
 	@JsonProperty("metaData")
 	private Map<String, Object> metaData = new HashMap<String, Object>();
-
-	/**
-	 * No args constructor for use in serialization
-	 *
-	 */
-	public IssueMemberDaily() {
-	}
-
-	/**
-	 *
-	 * @param backlogId
-	 * @param capacity
-	 * @param description
-	 * @param createdDate
-	 */
-	public IssueMemberDaily(IssueMemberDailyId issueMemberDailyID, IssueStatus statusID, String description, Date createdDate) {
-		super();
-		this.issueMemberDailyID = issueMemberDailyID;
-		this.statusID = statusID;
-		this.description = description;
-		this.createdDate = createdDate;
-	}
 
 	@JsonProperty("issueMemberDailyID")
 	public IssueMemberDailyId getIssueMemberDailyID() {
@@ -117,6 +91,16 @@ public class IssueMemberDaily {
 		this.createdDate = createdDate;
 	}
 
+	@JsonProperty("impediments")
+	public List<Issue> getImpediments() {
+		return impediments;
+	}
+
+	@JsonProperty("impediments")
+	public void setImpediments(List<Issue> impediments) {
+		this.impediments = impediments;
+	}
+
 	@JsonProperty("metaData")
 	public Map<String, Object> getMetaData() {
 		return this.metaData;
@@ -125,48 +109,6 @@ public class IssueMemberDaily {
 	@JsonProperty("metaData")
 	public void setMetaData(String name, Object value) {
 		this.metaData.put(name, value);
-	}
-
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this).append("issueMemberDailyID", issueMemberDailyID).append("statusID", statusID)
-				.append("description", description).append("createdDate", createdDate)
-				.append("additionalProperties", metaData).toString();
-	}
-
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder().append(issueMemberDailyID).append(statusID).append(description).append(createdDate)
-				.append(metaData).toHashCode();
-	}
-
-	@Override
-	public boolean equals(Object other) {
-		if (other == this) {
-			return true;
-		}
-		if ((other instanceof IssueMemberDaily) == false) {
-			return false;
-		}
-		IssueMemberDaily rhs = ((IssueMemberDaily) other);
-		return new EqualsBuilder().append(issueMemberDailyID, rhs.issueMemberDailyID).append(statusID, rhs.statusID).append(description, rhs.description)
-				.append(createdDate, rhs.createdDate).append(metaData, rhs.metaData).isEquals();
-	}
-
-	/**
-	 * @return the impediments
-	 */
-	@JsonProperty("impediments")
-	public List<Issue> getImpediments() {
-		return impediments;
-	}
-
-	/**
-	 * @param impediments the impediments to set
-	 */
-	@JsonProperty("impediments")
-	public void setImpediments(List<Issue> impediments) {
-		this.impediments = impediments;
 	}
 
 }

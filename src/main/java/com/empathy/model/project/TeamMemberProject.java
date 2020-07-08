@@ -1,50 +1,33 @@
 package com.empathy.model.project;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.empathy.types.IssueType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @Entity
-@Table(name = "V_PROJECT_ISSUE_TEAM_MEMBER_BACKLOG")
+@Table(name = "V_PROJECT_TEAM_MEMBER_PROJECT")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "parentID", "issueID", "projectID", "typeID", "name", "description", "effort", "ownerID",
-		"estimatedDate", "createdDate" })
-public class IssueTeamMemberBacklog {
-
-	@Id
-	@Column(name = "ISSUE_ID")
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
-	@JsonProperty("issueID")
-	private String issueID;
-
-	@Column(name = "PARENT_ID")
-	@JsonProperty("parentID")
-	private String parentID;
+@JsonPropertyOrder({ "projectID", "name", "description", "tags", "ownerID", "estimatedDate", "createdDate", "memberID",
+		"capacity" })
+public class TeamMemberProject {
 
 	@Column(name = "PROJECT_ID")
+	@GeneratedValue(generator = "system-uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	@JsonProperty("projectID")
 	private String projectID;
-
-	@Column(name = "TYPE_ID")
-	@NotNull
-	@JsonProperty("typeID")
-	private IssueType typeID;
 
 	@Column(name = "NAME")
 	@JsonProperty("name")
@@ -54,9 +37,9 @@ public class IssueTeamMemberBacklog {
 	@JsonProperty("description")
 	private String description;
 
-	@Column(name = "EFFORT")
-	@JsonProperty("effort")
-	private Integer effort;
+	@Column(name = "TAGS")
+	@JsonProperty("tags")
+	private String tags;
 
 	@Column(name = "OWNER_ID")
 	@JsonProperty("ownerID")
@@ -67,38 +50,19 @@ public class IssueTeamMemberBacklog {
 	private Date estimatedDate;
 
 	@Column(name = "CREATEDDATE", insertable = false, updatable = false)
+	@JsonProperty("createdDate")
 	private Date createdDate;
 
-	@Transient
+	@Column(name = "MEMBER_ID")
+	@JsonProperty("memberID")
+	private String memberID;
+
+	@Column(name = "CAPACITY")
+	@JsonProperty("capacity")
+	private Integer capacity;
+
 	@JsonProperty("metaData")
-	private Map<String, Object> metaData = new HashMap<String, Object>();
-
-	/**
-	 * No args constructor for use in serialization
-	 *
-	 */
-	public IssueTeamMemberBacklog() {
-	}
-
-	@JsonProperty("issueID")
-	public String getIssueID() {
-		return issueID;
-	}
-
-	@JsonProperty("issueID")
-	public void setIssueID(String issueID) {
-		this.issueID = issueID;
-	}
-
-	@JsonProperty("parentID")
-	public String getParentID() {
-		return parentID;
-	}
-
-	@JsonProperty("parentID")
-	public void setParentID(String parentID) {
-		this.issueID = parentID;
-	}
+	private Map<String, Object> metaData;
 
 	@JsonProperty("projectID")
 	public String getProjectID() {
@@ -108,16 +72,6 @@ public class IssueTeamMemberBacklog {
 	@JsonProperty("projectID")
 	public void setProjectID(String projectID) {
 		this.projectID = projectID;
-	}
-
-	@JsonProperty("typeID")
-	public IssueType getTypeID() {
-		return typeID;
-	}
-
-	@JsonProperty("typeID")
-	public void setTypeID(IssueType typeID) {
-		this.typeID = typeID;
 	}
 
 	@JsonProperty("name")
@@ -140,14 +94,14 @@ public class IssueTeamMemberBacklog {
 		this.description = description;
 	}
 
-	@JsonProperty("effort")
-	public Integer getEffort() {
-		return effort;
+	@JsonProperty("tags")
+	public String getTags() {
+		return tags;
 	}
 
-	@JsonProperty("effort")
-	public void setEffort(Integer effort) {
-		this.effort = effort;
+	@JsonProperty("tags")
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 	@JsonProperty("ownerID")
@@ -180,6 +134,26 @@ public class IssueTeamMemberBacklog {
 		this.createdDate = createdDate;
 	}
 
+	@JsonProperty("memberID")
+	public String getMemberID() {
+		return memberID;
+	}
+
+	@JsonProperty("memberID")
+	public void setMemberID(String memberID) {
+		this.memberID = memberID;
+	}
+
+	@JsonProperty("capacity")
+	public Integer getCapacity() {
+		return capacity;
+	}
+
+	@JsonProperty("capacity")
+	public void setCapacity(Integer capacity) {
+		this.capacity = capacity;
+	}
+
 	@JsonProperty("metaData")
 	public Map<String, Object> getMetaData() {
 		return this.metaData;
@@ -189,5 +163,4 @@ public class IssueTeamMemberBacklog {
 	public void setMetaData(String name, Object value) {
 		this.metaData.put(name, value);
 	}
-
 }

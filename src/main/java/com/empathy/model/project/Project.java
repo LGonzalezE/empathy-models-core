@@ -11,14 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -60,37 +54,10 @@ public class Project {
 	@JsonProperty("createdDate")
 	private Date createdDate;
 	@Transient
-	@JsonIgnore	
-	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+	@JsonProperty("metaData")
+	private Map<String, Object> metaData = new HashMap<String, Object>();
 
-	/**
-	 * No args constructor for use in serialization
-	 *
-	 */
-	public Project() {
-	}
-
-	/**
-	 *
-	 * @param createdDate
-	 * @param name
-	 * @param estimatedDate
-	 * @param description
-	 * @param ownerID
-	 * @param projectID
-	 * @param tags
-	 */
-	public Project(String projectID, String name, String description, String tags, String ownerID, Date estimatedDate,
-			Date createdDate) {
-		super();
-		this.projectID = projectID;
-		this.name = name;
-		this.description = description;
-		this.tags = tags;
-		this.ownerID = ownerID;
-		this.estimatedDate = estimatedDate;
-		this.createdDate = createdDate;
-	}
+	
 
 	@JsonProperty("projectID")
 	public String getProjectID() {
@@ -162,43 +129,15 @@ public class Project {
 		this.createdDate = createdDate;
 	}
 
-	@JsonAnyGetter
-	public Map<String, Object> getAdditionalProperties() {
-		return this.additionalProperties;
+	@JsonProperty("metaData")
+	public Map<String, Object> getMetaData() {
+		return this.metaData;
 	}
 
-	@JsonAnySetter
-	public void setAdditionalProperty(String name, Object value) {
-		this.additionalProperties.put(name, value);
+	@JsonProperty("metaData")
+	public void setMetaData(String name, Object value) {
+		this.metaData.put(name, value);
 	}
 
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this).append("projectID", projectID).append("name", name)
-				.append("description", description).append("tags", tags).append("ownerID", ownerID)
-				.append("estimatedDate", estimatedDate).append("createdDate", createdDate)
-				.append("additionalProperties", additionalProperties).toString();
-	}
-
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder().append(createdDate).append(name).append(estimatedDate).append(description)
-				.append(additionalProperties).append(ownerID).append(projectID).append(tags).toHashCode();
-	}
-
-	@Override
-	public boolean equals(Object other) {
-		if (other == this) {
-			return true;
-		}
-		if ((other instanceof Project) == false) {
-			return false;
-		}
-		Project rhs = ((Project) other);
-		return new EqualsBuilder().append(createdDate, rhs.createdDate).append(name, rhs.name)
-				.append(estimatedDate, rhs.estimatedDate).append(description, rhs.description)
-				.append(additionalProperties, rhs.additionalProperties).append(ownerID, rhs.ownerID)
-				.append(projectID, rhs.projectID).append(tags, rhs.tags).isEquals();
-	}
 
 }
