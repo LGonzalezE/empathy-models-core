@@ -1,4 +1,4 @@
-package com.empathy.model.project.sprint;
+package com.empathy.model.project;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -70,8 +70,8 @@ public class IssueTeamMemberBacklog {
 	private Date createdDate;
 
 	@Transient
-	@JsonProperty("metadaData")
-	private Map<String, Object> metadaData = new HashMap<String, Object>();
+	@JsonProperty("metaData")
+	private Map<String, Object> metaData = new HashMap<String, Object>();
 
 	/**
 	 * No args constructor for use in serialization
@@ -180,14 +180,14 @@ public class IssueTeamMemberBacklog {
 		this.createdDate = createdDate;
 	}
 
-	@JsonProperty("metadaData")
-	public Map<String, Object> getMetadaData() {
-		return this.metadaData;
+	@JsonProperty("metaData")
+	public Map<String, Object> getMetaData() {
+		return this.metaData;
 	}
 
-	@JsonProperty("metadaData")
-	public void setMetadaData(String name, Object value) {
-		this.metadaData.put(name, value);
+	@JsonProperty("metaData")
+	public void setMetaData(String name, Object value) {
+		this.metaData.put(name, value);
 	}
 
 }

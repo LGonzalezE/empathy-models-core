@@ -15,9 +15,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -61,9 +58,8 @@ public class Sprint {
 	@JsonProperty("createdDate")
 	private Date createdDate;
 
-	@Transient
-	@JsonIgnore
-	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+	@Transient	
+	private Map<String, Object> metaData = new HashMap<String, Object>();
 
 	/**
 	 * No args constructor for use in serialization
@@ -164,14 +160,14 @@ public class Sprint {
 		this.createdDate = createdDate;
 	}
 
-	@JsonAnyGetter
-	public Map<String, Object> getAdditionalProperties() {
-		return this.additionalProperties;
+	@JsonProperty("metaData")
+	public Map<String, Object> getMetaData() {
+		return this.metaData;
 	}
 
-	@JsonAnySetter
-	public void setAdditionalProperty(String name, Object value) {
-		this.additionalProperties.put(name, value);
+	@JsonProperty("metaData")
+	public void setMetaData(String name, Object value) {
+		this.metaData.put(name, value);
 	}
 
 	@Override
@@ -179,13 +175,13 @@ public class Sprint {
 		return new ToStringBuilder(this).append("sprintID", sprintID).append("name", name)
 				.append("description", description).append("startDate", startDate).append("endDate", endDate)
 				.append("createdBy", createdBy).append("createdDate", createdDate)
-				.append("additionalProperties", additionalProperties).toString();
+				.append("additionalProperties", metaData).toString();
 	}
 
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder().append(sprintID).append(name).append(description).append(startDate)
-				.append(endDate).append(createdBy).append(createdDate).append(additionalProperties).toHashCode();
+				.append(endDate).append(createdBy).append(createdDate).append(metaData).toHashCode();
 	}
 
 	@Override
@@ -200,7 +196,7 @@ public class Sprint {
 		return new EqualsBuilder().append(sprintID, rhs.sprintID).append(name, rhs.name)
 				.append(description, rhs.description).append(startDate, rhs.startDate)
 				.append(endDate, rhs.endDate).append(createdBy, rhs.createdBy)
-				.append(createdDate, rhs.createdDate).append(additionalProperties, rhs.additionalProperties).isEquals();
+				.append(createdDate, rhs.createdDate).append(metaData, rhs.metaData).isEquals();
 	}
 
 }

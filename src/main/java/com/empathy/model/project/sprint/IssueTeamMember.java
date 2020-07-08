@@ -10,12 +10,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @Entity
-@Table(name = "V_PROJECT_ISSUE_TEAM_MEMBER")
+@Table(name = "V_PROJECT_SPRINT_ISSUE_TEAM_MEMBER")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "parentIssueID", "userID", "name"})
+@JsonPropertyOrder({ "parentIssueID", "sprintID", "userID", "name"})
 public class IssueTeamMember {
 
 		
+	
+	@Column(name = "SPRINT_ID")
+	@JsonProperty("sprintID")
+	private String sprintID;
+	
 	@Column(name = "PARENT_ISSUE_ID")
 	@JsonProperty("parentIssueID")
 	private String parentIssueID;
@@ -75,6 +80,22 @@ public class IssueTeamMember {
 	@JsonProperty("name")
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the sprintID
+	 */
+	@JsonProperty("sprintID")
+	public String getSprintID() {
+		return sprintID;
+	}
+
+	/**
+	 * @param sprintID the sprintID to set
+	 */
+	@JsonProperty("sprintID")
+	public void setSprintID(String sprintID) {
+		this.sprintID = sprintID;
 	}
 
 	

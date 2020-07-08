@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Entity
 @Table(name = "PROJECT_SPRINT_BACKLOG")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "backlogID", "issueOrder", "createdBy", "createdDate" })
+@JsonPropertyOrder({ "backlogID", "issueOrder", "issueLevel", "createdBy", "createdDate" })
 public class Backlog {
 
 	@EmbeddedId
@@ -36,6 +36,11 @@ public class Backlog {
 	@Column(name = "ISSUE_ORDER")
 	@JsonProperty("issueOrder")
 	private Integer issueOrder;
+	
+	@NotNull
+	@Column(name = "ISSUE_LEVEL")
+	@JsonProperty("issueLevel")
+	private Integer issueLevel;
 
 	@NotNull
 	@Column(name = "CREATEDBY")
@@ -146,6 +151,22 @@ public class Backlog {
 		Backlog rhs = ((Backlog) other);
 		return new EqualsBuilder().append(backlogID, rhs.backlogID).append(createdBy, rhs.createdBy)
 				.append(createdDate, rhs.createdDate).append(additionalProperties, rhs.additionalProperties).isEquals();
+	}
+
+	/**
+	 * @return the issueLevel
+	 */
+	@JsonProperty("issueLevel")
+	public Integer getIssueLevel() {
+		return issueLevel;
+	}
+
+	/**
+	 * @param issueLevel the issueLevel to set
+	 */
+	@JsonProperty("issueLevel")
+	public void setIssueLevel(Integer issueLevel) {
+		this.issueLevel = issueLevel;
 	}
 
 }

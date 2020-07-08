@@ -10,8 +10,11 @@ import com.empathy.model.project.sprint.IssueTeamMember;
 
 @Repository
 public interface IssueTeamMemberRepository extends CrudRepository<IssueTeamMember, String> {
-	
+
 	@Query("SELECT m FROM IssueTeamMember m WHERE m.parentIssueID = :parentIssueID")
 	List<IssueTeamMember> findByParentId(String parentIssueID);
+
+	@Query("SELECT m FROM IssueTeamMember m WHERE m.sprintID = :sprintID and m.parentIssueID = :parentIssueID")
+	List<IssueTeamMember> findByParentId(String sprintID, String parentIssueID);
 
 }
