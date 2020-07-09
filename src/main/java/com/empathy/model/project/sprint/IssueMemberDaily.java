@@ -28,8 +28,7 @@ public class IssueMemberDaily {
 	@EmbeddedId
 	@JsonProperty("issueMemberDailyID")
 	private IssueMemberDailyId issueMemberDailyID;
-
-	@NotNull
+	
 	@Column(name = "STATUS_ID")
 	@JsonProperty("statusID")
 	private IssueStatus statusID;

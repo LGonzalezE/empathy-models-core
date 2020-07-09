@@ -125,6 +125,16 @@ public class Issue {
 	public void setTypeID(IssueType typeID) {
 		this.typeID = typeID;
 	}
+	
+	@JsonProperty("statusID")
+	public IssueStatus getStatusID() {
+		return statusID;
+	}
+
+	@JsonProperty("statusID")
+	public void setStatusID(IssueStatus statusID) {
+		this.statusID = statusID;
+	}
 
 	@JsonProperty("name")
 	public String getName() {

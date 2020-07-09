@@ -1,6 +1,7 @@
 package com.empathy.model.project.sprint;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
@@ -29,6 +30,11 @@ public class IssueMemberDailyId implements Serializable {
 	@Column(name = "MEMBER_ID")
 	@JsonProperty("memberID")
 	private String memberID;
+	
+	@NotNull
+	@Column(name = "DAILY_DATE")
+	@JsonProperty("dailyDate")
+	private Date dailyDate;
 
 	public IssueMemberDailyId() {
 
@@ -96,6 +102,17 @@ public class IssueMemberDailyId implements Serializable {
 	public void setMemberID(String memberID) {
 		this.memberID = memberID;
 	}
+	
+	public Date getDailyDate() {
+		return dailyDate;
+	}
+	
+	public void setDailyDate(Date dailyDate) {
+		this.dailyDate = dailyDate;
+	}
+
+	
+	
 
 	@Override
 	public int hashCode() {
@@ -105,6 +122,7 @@ public class IssueMemberDailyId implements Serializable {
 		result = prime * result + ((projectID == null) ? 0 : projectID.hashCode());
 		result = prime * result + ((issueID == null) ? 0 : issueID.hashCode());
 		result = prime * result + ((memberID == null) ? 0 : memberID.hashCode());
+		result = prime * result + ((dailyDate == null) ? 0 : dailyDate.hashCode());
 
 		return result;
 	}
@@ -141,6 +159,12 @@ public class IssueMemberDailyId implements Serializable {
 			if (other.memberID != null)
 				return false;
 		} else if (!memberID.equals(other.memberID))
+			return false;
+		
+		if (dailyDate == null) {
+			if (other.dailyDate != null)
+				return false;
+		} else if (!dailyDate.equals(other.dailyDate))
 			return false;
 
 		return true;
