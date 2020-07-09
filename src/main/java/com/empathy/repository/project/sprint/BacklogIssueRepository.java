@@ -15,7 +15,13 @@ public interface BacklogIssueRepository extends CrudRepository<BacklogIssue, Str
 	List<BacklogIssue> findBySprintId(String sprintID);
 
 	@Query("SELECT q FROM BacklogIssue q WHERE q.sprintID = :sprintID and q.parentID = :parentID")
-	List<BacklogIssue> findBySprintId(String sprintID, String parentID);
+	List<BacklogIssue> findBySprintID(String sprintID, String parentID);
+
+	@Query("SELECT q FROM BacklogIssue q WHERE q.parentID = :parentID")
+	List<BacklogIssue> findByChildsByParentID(String parentID);
+
+	@Query("SELECT q FROM BacklogIssue q WHERE q.sprintID = :sprintID and q.parentID is null")
+	List<BacklogIssue> findRootBySprintID(String sprintID);
 	
 	
 }

@@ -13,6 +13,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Immutable;
 
 import com.empathy.types.IssueStatus;
 import com.empathy.types.IssueType;
@@ -22,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @Entity
+@Immutable
 @Table(name = "V_PROJECT_SPRINT_BACKLOG_ISSUE")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @JsonInclude(JsonInclude.Include.NON_NULL)

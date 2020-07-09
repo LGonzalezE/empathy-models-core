@@ -1,14 +1,16 @@
 package com.empathy.model.project;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Immutable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -16,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @Entity
+@Immutable
 @Table(name = "V_PROJECT_TEAM_MEMBER_PROJECT")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -23,9 +26,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 		"capacity" })
 public class TeamMemberProject {
 
+	@Id
 	@Column(name = "PROJECT_ID")
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	@JsonProperty("projectID")
 	private String projectID;
 
@@ -61,8 +63,9 @@ public class TeamMemberProject {
 	@JsonProperty("capacity")
 	private Integer capacity;
 
+	@Transient
 	@JsonProperty("metaData")
-	private Map<String, Object> metaData;
+	private Map<String, Object> metaData = new HashMap<String, Object>();
 
 	@JsonProperty("projectID")
 	public String getProjectID() {

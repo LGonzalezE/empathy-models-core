@@ -53,6 +53,7 @@ public class Project {
 	@Column(name = "CREATEDDATE", insertable = false, updatable = false)
 	@JsonProperty("createdDate")
 	private Date createdDate;
+	
 	@Transient
 	@JsonProperty("metaData")
 	private Map<String, Object> metaData = new HashMap<String, Object>();
